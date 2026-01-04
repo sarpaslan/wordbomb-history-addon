@@ -10,7 +10,7 @@ const addon = new WordBombAddon(process.env.ADDON_TOKEN, {
   permissions: ['io.wordbomb.sendmessage'],
   welcome: `
     <h3>Word History</h3>
-    <p>Track your recent words and prompts!</p>
+    <p>Track your recent words and prompts</p>
     <p><b>/history</b> - View recent words</p>
     <p><b>/export</b> - Send history to Discord DM</p>
     <p><b>/clearhistory</b> - Clear your history</p>
@@ -64,7 +64,7 @@ addon.registerCommand('history', (client, args) => {
   const history = getHistory(client.id);
 
   if (history.length === 0) {
-    addon.sendChat(client.id, 'No history yet! Play some games first.');
+    addon.sendChat(client.id, 'No history yet. Play some games first.');
     return;
   }
 
@@ -95,7 +95,7 @@ addon.registerCommand('export', async (client, args) => {
   const history = getHistory(client.id);
 
   if (history.length === 0) {
-    addon.sendChat(client.id, 'No history to export!');
+    addon.sendChat(client.id, 'No history to export.');
     return;
   }
 
@@ -114,7 +114,7 @@ addon.registerCommand('export', async (client, args) => {
   try {
     await addon.sendDiscordFile(client.id, fileName, content);
     lastExport.set(client.id, Date.now());
-    addon.sendChat(client.id, 'History sent to your Discord DMs!');
+    addon.sendChat(client.id, 'History sent to your Discord DMs.');
   } catch (err) {
     if (err === 'Permission denied') {
       addon.sendChat(client.id, 'Permission denied. Please enable the addon again and grant permission.');
@@ -129,7 +129,7 @@ addon.registerCommand('export', async (client, args) => {
 addon.registerCommand('clearhistory', (client, args) => {
   playerHistory[client.id] = [];
   saveHistory();
-  addon.sendChat(client.id, 'Your history has been cleared!');
+  addon.sendChat(client.id, 'Your history has been cleared.');
 });
 
 addon.on('ready', (id) => {
